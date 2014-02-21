@@ -1,4 +1,13 @@
 <?php
+	
+	require_once 'Controller/ServidorController.php';
+	require_once 'Model/Servidor.php';
+
+	$sc = new ServidorController();
+	$rows = $sc->carregarServidoresEUAAction();
+
+	
+
 ?>
 <!DOCTYPE html!>
 <html lang="pt-br">
@@ -71,20 +80,22 @@
 						</tr>
 					</thead>
 					<tbody>
+					<?php foreach($rows as $r): ?>
 						<tr>
-							<td>A</td>
-							<td>A</td>
-							<td>A</td>
-							<td>A</td>
-							<td>A</td>
-							<td>A</td>
-							<td>A</td>
-							<td>A</td>
-							<td>A</td>
-							<td>A</td>
-							<td>A</td>
-							<td>A</td>
+							<td><?php ?></td>
+							<td><?php ?></td>
+							<td><?php ?></td>
+							<td><?php ?></td>
+							<td><?php ?></td>
+							<td><?php ?></td>
+							<td><?php ?></td>
+							<td><?php ?></td>
+							<td><?php ?></td>
+							<td><?php ?></td>
+							<td><?php ?></td>
+							<td><?php ?></td>
 						</tr>
+					<?php endforeach;?>
 					</tbody>
 				</table>
 				<span class="pull-right">

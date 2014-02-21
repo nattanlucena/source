@@ -15,11 +15,16 @@ class Servidor {
 	private $nginx;
 	private $cloudlinux;
 	private $cpanel;
+
+	private $property;
 	
 	public function __construct(){
 		
 	}
 	
+	public function Servidor($property){
+		$this->property = $property;
+	}
 	public function getHdnumber(){
 		return $this->hdnumber;
 	}

@@ -1,14 +1,17 @@
 <?php
 
-require_once '../Model/Servidor.php';
-require_once '../DAO/ServidorDAO.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/hostdime/Model/Servidor.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/hostdime/DAO/ServidorDAO.php';
 
 class ServidorController {
 		
-		private $servidor;
-		private $servidorDAO;
+	private $servidor;
+	private $servidorDAO;
 	
 	public function __construct(){
+
+		$this->servidor = new Servidor();
+		$this->servidorDAO = new ServidorDAO();
 		
 		if( isset($_GET['acao'])){
 			$acao = $_GET['acao'];
@@ -30,9 +33,6 @@ class ServidorController {
 	
 	public function inserirAction(){
 		
-		$this->servidor = new Servidor();
-		$this->servidorDAO = new ServidorDAO();
-		
 		if( isset( $_POST['salvar'] ) ){
 			
 			$this->servidor->setCpanel($_POST['cpanel']);
@@ -49,13 +49,11 @@ class ServidorController {
 			$this->servidor->setPhp53($_POST['php53']);
 			$this->servidor->setPhp54($_POST['php54']);
 			$this->servidor->setTipo($_POST['tipo']);
-			
-			
+				
 			try{
 				
 				$v = $this->servidorDAO->insert($this->servidor);
-				
-				//header('Location: ../index.php');
+				header('Location: ../index.php');
 				
 			}catch(Exception $e){
 				echo 'Erro: '.$e;
@@ -70,6 +68,28 @@ class ServidorController {
 	
 	public function deletarAction(){
 		
+	}
+
+	public function carregarServidoresEUAAction(){
+
+		try{
+
+			$ar [] = array();
+	
+			$rows = $this->servidorDAO->findAllEUA();
+		
+			if( is_array($rows) && !empty($rows) ){
+				foreach($rows as $r){
+	
+					$ar [] = array( new Servidor($r) );
+				}
+			}
+			return $ar;
+
+		}catch(Exception $e){
+			echo 'Erro: '.$e;
+			exit();
+		}
 	}
 }
 

@@ -1,7 +1,7 @@
 <?php
 
-require_once '../Config/Conn.php';
-require_once '../Model/Servidor.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/hostdime/Config/Conn.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/hostdime/Model/Servidor.php';
 
 class ServidorDAO {
 	 
@@ -17,7 +17,7 @@ class ServidorDAO {
 	}
 	
 	/**
-	 * 
+	 * inserir um objeto Servidor no BD
 	 * @param Servidor $s
 	 */
 	public function insert($s){
@@ -26,6 +26,8 @@ class ServidorDAO {
 			
 			$this->server = $s;
 			$values = array();
+			
+			//transformar um objeto em um array
 			$values = $this->objectToArray($s);
 			
 			foreach ($values as $field => $v){
@@ -37,7 +39,7 @@ class ServidorDAO {
 		
 			$sql = "INSERT INTO servidor ($fields) VALUES ($ins)";
 			$stmt = $this->db->prepare($sql);
-			var_dump($sql);
+			//var_dump($sql);
 			
 			foreach ($values as $f => $v)
 			{
@@ -61,14 +63,96 @@ class ServidorDAO {
 	}
 	
 	function objectToArray($o) { 
-		 $reflectionClass = new ReflectionClass(get_class($o));
-    $array = array();
-    foreach ($reflectionClass->getProperties() as $property) {
-        $property->setAccessible(true);
-        $array[$property->getName()] = $property->getValue($o);
-        $property->setAccessible(false);
-    }
-    return $array; 
+		
+		$reflectionClass = new ReflectionClass(get_class($o));
+	    $array = array();
+	    foreach ($reflectionClass->getProperties() as $property) {
+	        $property->setAccessible(true);
+	        $array[$property->getName()] = $property->getValue($o);
+	        $property->setAccessible(false);
+	    }
+	    return $array; 
+	    
+	}
+	public function findAllEUA(){
+
+		try {
+
+			$sql = "SELECT * FROM servidor WHERE dc = 'EUA' AND tipo = 'hospedagem'";
+
+			$stmt = $this->db->prepare($sql);
+			$stmt->execute();
+
+			$rows = $stmt->fetchAll();
+
+			//var_dump($rows);
+			return $rows;
+			
+		} catch (PDOException $e) {
+			echo $e->getMessage();
+		}
+	}
+
+	public function findAllBR(){
+
+		
+		try {
+
+			$sql = "SELECT * FROM servidor WHERE dc = 'EUA' AND tipo = 'hospedagem'";
+
+			$stmt = $this->conn->prepare($sql);
+			$stmt->execute();
+
+			$rows = $stmt->fetchAll();
+
+			var_dump($rows);
+			//return $rows;
+			
+		} catch (PDOException $e) {
+			echo $e->getMessage();
+		}
+
+	}
+
+	public function findAllSPO(){
+
+
+		try {
+
+			$sql = "SELECT * FROM servidor WHERE dc = 'EUA' AND tipo = 'hospedagem'";
+
+			$stmt = $this->conn->prepare($sql);
+			$stmt->execute();
+
+			$rows = $stmt->fetchAll();
+
+			var_dump($rows);
+			//return $rows;
+			
+		} catch (PDOException $e) {
+			echo $e->getMessage();
+		}
+
+	}
+
+	public function find($id){
+
+		try {
+
+			$sql = "SELECT * FROM servidor WHERE id = ':id'";
+
+			$stmt = $this->conn->prepare($sql);
+			$stmt->bindValue(':id'. $id);
+			$stmt->execute();
+
+			$row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+			return $row;
+			
+		} catch (PDOException $e) {
+			echo $e->getMessage();
+		}
+
 	}
 	
 }
