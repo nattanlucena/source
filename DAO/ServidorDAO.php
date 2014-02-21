@@ -18,6 +18,7 @@ class ServidorDAO {
 		$this->functions = new Functions();
 	}
 	
+	
 	/**
 	 * inserir um objeto Servidor no BD
 	 * @param Servidor $s
@@ -41,13 +42,12 @@ class ServidorDAO {
 		
 			$sql = "INSERT INTO servidor ($fields) VALUES ($ins)";
 			$stmt = $this->db->prepare($sql);
-			//var_dump($sql);
-			
+
 			foreach ($values as $f => $v)
 			{
 				$stmt->bindValue(':' . $f, $v);
 			}
-			
+			//print_r($stmt);
 			$stmt->execute();
 			
 		}catch(PDOException $e){
@@ -60,23 +60,35 @@ class ServidorDAO {
 		
 	}
 	
+	
 	public function delete($id){
+		
+		try{
+			
+			$sql = "DELETE FROM servidor WHERE hdnumber = :hdnumber";
+			$stmt = $this->db->prepare($sql);
+			$stmt->bindValue(":hdnumber", $id);
+			$stmt->execute();
+			
+		}catch(PDOException $e){
+			echo $e->getMessage();
+		}
 		
 	}
 	
 	
-	public function findAllEUA(){
+	public function findAllShared(){
 
 		try {
 
-			$sql = "SELECT * FROM servidor WHERE dc = 'EUA' AND tipo = 'hospedagem'";
+			$sql = "SELECT * FROM servidor WHERE tipo = 'hospedagem' ORDER BY dc";
 
 			$stmt = $this->db->prepare($sql);
 			$stmt->execute();
 
-			$rows = $stmt->fetchAll();
+			//retornar ja como objetos do tipo 'servidor'
+			$rows = $stmt->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE,'servidor');
 
-			//var_dump($rows);
 			return $rows;
 			
 		} catch (PDOException $e) {
@@ -84,20 +96,19 @@ class ServidorDAO {
 		}
 	}
 
-	public function findAllBR(){
+	
+	public function findAllReseller(){
 
-		
 		try {
 
-			$sql = "SELECT * FROM servidor WHERE dc = 'EUA' AND tipo = 'hospedagem'";
+			$sql = "SELECT * FROM servidor WHERE tipo = 'revenda' ORDER BY dc";
 
 			$stmt = $this->conn->prepare($sql);
 			$stmt->execute();
 
-			$rows = $stmt->fetchAll();
+			$rows = $stmt->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE,'servidor');
 
-			var_dump($rows);
-			//return $rows;
+			return $rows;
 			
 		} catch (PDOException $e) {
 			echo $e->getMessage();
@@ -105,20 +116,19 @@ class ServidorDAO {
 
 	}
 
-	public function findAllSPO(){
-
+	
+	public function findAllVPS(){
 
 		try {
 
-			$sql = "SELECT * FROM servidor WHERE dc = 'EUA' AND tipo = 'hospedagem'";
+			$sql = "SELECT * FROM servidor WHERE tipo = 'vps' ORDER BY dc";
 
 			$stmt = $this->conn->prepare($sql);
 			$stmt->execute();
 
-			$rows = $stmt->fetchAll();
+			$rows = $stmt->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE,'servidor');
 
-			var_dump($rows);
-			//return $rows;
+			return $rows;
 			
 		} catch (PDOException $e) {
 			echo $e->getMessage();
@@ -126,6 +136,7 @@ class ServidorDAO {
 
 	}
 
+	
 	public function find($id){
 
 		try {

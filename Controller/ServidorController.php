@@ -25,7 +25,7 @@ class ServidorController {
 					self::editarAction();
 				}
 				case "deletar":{
-					self::editarAction();
+					self::deletarAction();
 				}
 			}
 		}
@@ -69,40 +69,68 @@ class ServidorController {
 	
 	public function deletarAction(){
 		
+		if( isset($_GET['id']) ){
+			
+			try{
+				$id = $_GET['id'];
+				$this->servidorDAO->delete($id);
+				//var_dump($id);
+			}catch(Exception $e){
+				echo 'Erro: '.$e;
+			}
+		}
 	}
 
-	public function carregarServidoresEUAAction(){
+	public function carregarSharedAction(){
 
 		try{
 
-			$ar [] = array();
 			$rows = array();
-			$rows = $this->servidorDAO->findAllEUA();
-			//var_dump($rows);
+			$rows = $this->servidorDAO->findAllShared();
 			
 			if( is_array($rows) && !empty($rows) ){
-				foreach($rows as $r){
-	
-					$ar [] = array( 
-							'hdnumber' => $r['hdnumber'],
-							'dc' => $r['dc'],
-							'hostname' => $r['hostname'],
-							'ip' => $r['ip'],
-							'dns1' => $r['dns1'],
-							'dns2' => $r['dns2'],
-							'php53' => $r['php53'],
-							'php54' => $r['php54'],
-							'apache' =>$r['apache'],
-							'mysql' => $r['mysql'],
-							'nginx' => $r['nginx'],
-							'cloudlinux' => $r['cloudlinux'],
-							'cpanel' => $r['cpanel']
-					);
-				}
+				//retorna um array de objetos Servidor
+				return $rows;
 			}
-			//var_dump($ar);
-			return $ar;
 
+		}catch(Exception $e){
+			echo 'Erro: '.$e;
+			exit();
+		}
+	}
+	
+	
+	public function carregarResellerAction(){
+	
+		try{
+	
+			$rows = array();
+			$rows = $this->servidorDAO->findAllReseller();
+				
+			if( is_array($rows) && !empty($rows) ){
+				//retorna um array de objetos Servidor
+				return $rows;
+			}
+	
+		}catch(Exception $e){
+			echo 'Erro: '.$e;
+			exit();
+		}
+	}
+	
+	
+	public function carregarVPSAction(){
+	
+		try{
+	
+			$rows = array();
+			$rows = $this->servidorDAO->findAllVPS();
+				
+			if( is_array($rows) && !empty($rows) ){
+				//retorna um array de objetos Servidor
+				return $rows;
+			}
+	
 		}catch(Exception $e){
 			echo 'Erro: '.$e;
 			exit();

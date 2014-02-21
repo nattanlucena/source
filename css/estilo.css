@@ -19,12 +19,12 @@ body{
 	margin-bottom: 20px;
 }
 #search-input{
-	margin-top: 10px;
+	margin-top: 30px;
 	margin-bottom: 10px;
 }
 
 #all{
-	width: 95%;
+	width: 97%;
 	margin: auto;
 	padding: 10px;
 	background-color: #FFF;
@@ -32,7 +32,7 @@ body{
 }
 #menu{
 	margin-bottom: 10px;
-	margin-left: 38px;
+	margin-left: 25px;
 }
 
 #menu li{
@@ -86,7 +86,7 @@ table{
 
 .table td,
   .table th {
-    background-color: #EEEEEE !important;
+    background-color: #FAFAFA !important;
     
   }
   
@@ -100,8 +100,9 @@ table{
   padding: 10px;
   line-height: 1.428571429;
   vertical-align: top;
-  border-top: 1px solid #dddddd;
-  font-size: 1.1em;
+  border-top: 1px solid #FAFAFA;
+  font-size: 0.83em;
+  text-align: center;
 }
 
 .table tbody > tr:hover{
@@ -111,7 +112,7 @@ table{
 	background-color: rgb(242,242,255);
   	vertical-align: bottom;
   	text-align: center;
-  	font-size: 1.25em;
+  	font-size: 1.2em;
   	font-weight: normal;
 }
 
@@ -121,16 +122,14 @@ table{
 .table caption + thead tr:first-child td,
 .table colgroup + thead tr:first-child td,
 .table thead:first-child tr:first-child td {
-  border-top: 0;
+  border-top: 5;
 }
 
 .table tbody + tbody {
   border-top: 2px solid #dddddd;
 }
 
-.table .table {
-  background-color: #ffffff;
-}
+
 
 .table-condensed thead > tr > th,
 .table-condensed tbody > tr > th,
@@ -166,7 +165,7 @@ table{
 }
 
 footer{
-	margin-top: 20px;
+	margin-top: 10px;
 	padding-top: 10px;
 	margin: 0 auto;
 }
