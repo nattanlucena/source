@@ -7,31 +7,31 @@
  */
 class Conn extends PDO {
 	
-	private $con = false;
+	private $dsn = 'mysql:host=localhost;dbname=list_hd';
+	private $username = 'list_hd';
+	private $passwd = 'root';
+	protected static  $db;
 	
-	public function Conn(){
+	
+	public function __construct(){
 		
-	//connect to database
-        if (!$this->con)
-        {
-            //not yet connected, make a connection
-            try
-            {
-                $this->db = new PDO('mysql:host=localhost;dbname=list_hd','list_hd', 'root');
-                $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                $this->con = true;
-                
-                return $this->con;
-            }
-            catch (PDOException $e)
-            {
-               echo $e->getMessage();
-            }
-        }
-        else
-        {
-            return true;
-        }
+		try{
+			self::$db = new PDO($this->dsn, $this->username, $this->passwd);
+			self::$db->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
+			
+		}catch (PDOException $e){
+			echo $e->getMessage();
+		}
+	
+	}
+	
+	public function getInstance(){	
+		
+		if (!self::$db) {
+			
+			new dbConn();
+		}
+		return self::$db;
 	}
 	
 	

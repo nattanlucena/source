@@ -60,7 +60,11 @@
 							</div>	
 							<div class="form-group">	
 								<label for="dc" class="col-lg-2 control-label">DC:</label>
-									<input type="text" class="form-control"  name="dc" required id="dc"/><br />
+									<select id="dc" class="form-control" name="dc">
+										<option value="EUA">EUA</option>
+										<option value="BR">BR</option>
+										<option value="SPO">SPO</option>
+									</select><br />
 							</div>
 							<div class="form-group">	
 								<label for="tipo" class="col-lg-2 control-label">Tipo:</label>
@@ -121,7 +125,7 @@
 									<input type="text" class="form-control"  name="cpanel" required id="cpanel"/><br />
 							</div>	
 							<div class="form-group">	
-								<input type="submit" class="btn btn-primary btn-xs" id="salvar" value="Cadastrar" />
+								<input type="submit" class="btn btn-primary btn-xs" id="salvar" value="Cadastrar" name="salvar"/>
 							</div>
 							<!-- .form-group -->
 						</div>

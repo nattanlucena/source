@@ -29,7 +29,7 @@ class Servidor {
 	}
 	
 	public function getDc(){
-		return $this->$dc;
+		return $this->dc;
 	}
 	
 	public function setDc($dc){
@@ -37,18 +37,18 @@ class Servidor {
 	}
 	
 	public function getTipo(){
-		return $this->$dc;
+		return $this->tipo;
 	}
 	
 	public function setTipo($tipo){
-		$this->dc = $tipo;
+		$this->tipo = $tipo;
 	}
 	public function getHostname(){
 		return $this->hostname;
 	}
 	
 	public function setHostname($hostname){
-		$this->dc = $hostname;
+		$this->hostname = $hostname;
 	}
 	
 	public function getIp(){
