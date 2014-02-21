@@ -1,6 +1,7 @@
 <?php
 
 require_once $_SERVER['DOCUMENT_ROOT'].'/hostdime/Config/Conn.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/hostdime/Config/Functions.php';
 require_once $_SERVER['DOCUMENT_ROOT'].'/hostdime/Model/Servidor.php';
 
 class ServidorDAO {
@@ -14,6 +15,7 @@ class ServidorDAO {
 		$this->conn = new Conn();
 		$this->db = $this->conn->getInstance();
 		$this->server = new Servidor();
+		$this->functions = new Functions();
 	}
 	
 	/**
@@ -28,7 +30,7 @@ class ServidorDAO {
 			$values = array();
 			
 			//transformar um objeto em um array
-			$values = $this->objectToArray($s);
+			$values = $this->functions->objectToArray($s);
 			
 			foreach ($values as $field => $v){
 				$ins[] = ':' . $field;
@@ -62,18 +64,7 @@ class ServidorDAO {
 		
 	}
 	
-	function objectToArray($o) { 
-		
-		$reflectionClass = new ReflectionClass(get_class($o));
-	    $array = array();
-	    foreach ($reflectionClass->getProperties() as $property) {
-	        $property->setAccessible(true);
-	        $array[$property->getName()] = $property->getValue($o);
-	        $property->setAccessible(false);
-	    }
-	    return $array; 
-	    
-	}
+	
 	public function findAllEUA(){
 
 		try {

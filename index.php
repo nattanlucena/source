@@ -4,8 +4,10 @@
 	require_once 'Model/Servidor.php';
 
 	$sc = new ServidorController();
+	$rows = array();
 	$rows = $sc->carregarServidoresEUAAction();
 
+	//var_dump($rows);
 	
 
 ?>
@@ -80,26 +82,28 @@
 						</tr>
 					</thead>
 					<tbody>
+					
 					<?php foreach($rows as $r): ?>
 						<tr>
-							<td><?php ?></td>
-							<td><?php ?></td>
-							<td><?php ?></td>
-							<td><?php ?></td>
-							<td><?php ?></td>
-							<td><?php ?></td>
-							<td><?php ?></td>
-							<td><?php ?></td>
-							<td><?php ?></td>
-							<td><?php ?></td>
-							<td><?php ?></td>
-							<td><?php ?></td>
+							<td><?php echo $r['hdnumber']; ?></td>
+							<td><?php echo $r['dc']; ?></td>
+							<td><?php echo $r['hostname']; ?></td>
+							<td><?php echo $r['ip']; ?></td>
+							<td><?php echo $r['dns1'].'<br />'.$r['dns2'] ; ?></td>
+							<td><?php echo $r['php53']; ?></td>
+							<td><?php echo $r['php54']; ?></td>
+							<td><?php echo $r['apache']; ?></td>
+							<td><?php echo $r['mysql']; ?></td>
+							<td><?php echo $r['nginx']; ?></td>
+							<td><?php echo $r['cloudlinux']; ?></td>
+							<td><?php echo $r['cpanel']; ?></td>
 						</tr>
 					<?php endforeach;?>
+					
 					</tbody>
 				</table>
 				<span class="pull-right">
-				<a href="#">
+				<a href="./view/inserir_servidor.php">
 					<button class="btn btn-danger" >
 					<strong>Adicionar Servidor</strong>
 					<!--<img width="20" height="20"  title="editar texto" src="/imagens/adicionar.gif" /> -->
