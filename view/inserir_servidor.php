@@ -1,22 +1,11 @@
-<?php
-	
-	require_once '../../Controller/ServidorController.php';
-	require_once '../../Model/Servidor.php';
-
-	$sc = new ServidorController();
-	$rows = array();
-	$rows = $sc->carregarSharedAction();
-	
-
-?>
 <!DOCTYPE html!>
 <html lang="pt-br">
 	<head>
 		<meta charset="UTF-8">
 		<title>List Internal HDBR Servers</title>
 		
-		<link rel="stylesheet" type="text/css" href="../../css/estilo.css">
-		<link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
+		<link rel="stylesheet" type="text/css" href="../css/estilo.css">
+		<link rel="stylesheet" type="text/css" href="../css/bootstrap.css">
 		<link rel="stylesheet" type="text/css" href="http://getbootstrap.com/examples/sticky-footer-navbar/sticky-footer-navbar.css">
 		<link href="http://fonts.googleapis.com/css?family=Droid+Sans" rel="stylesheet" type="text/css">
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
@@ -32,6 +21,7 @@
 				width: 200px;
 			}
 		</style>
+		
 	</head>
 <body>
 	<div id="topo">
@@ -39,33 +29,33 @@
 				<div class="container">
 					<div class="navbar-header">
 						
-							<img src="../../img/logo.png" border="0" width="200px;" height="50px;">
+							<img src="../img/logo.png" border="0" width="200px;" height="50px;">
 						
 					</div><!-- .navbar-header -->
 					<div class="collapse navbar-collapse pull-right">
 						<ul class="nav navbar-nav">
-							<li><a href="../../index.php" >Shared Server</a>
+							<li><a href="shared.php" >Shared Server</a>
 								<!-- <ul>
 									<li>EUA</li>
 									<li>BR</li>
 									<li>SP</li>
 								</ul> -->
 							</li>
-							<li><a href="../reseller.php">Reseller Server</a>
+							<li><a href="reseller.php">Reseller Server</a>
 								<!--<ul>
 									<li>EUA</li>
 									<li>BR</li>
 									<li>SP</li>
 								</ul> -->
 							</li>
-							<li><a href="../vps.php">VPS Server</a>
+							<li><a href="vps.php">VPS Server</a>
 								<!--<ul>
 									<li>EUA</li>
 									<li>BR</li>
 									<li>SP</li>
 								</ul> -->
 							</li>
-							<li><a href="../../auditorias/index.php">Audit</a></li>
+							<li><a href="../auditorias/index.php">Audit</a></li>
 						</ul>
 					</div><!-- .navbar-collapse -->
 				</div><!-- .container -->
@@ -79,7 +69,7 @@
 					<h3 class="bs-callout bs-callout-info">Add Server</h3>
 				</div>
 				<div id="form">
-					<form method="POST" action="../../Controller/ServidorController.php?acao=inserir" class="form-horizontal" style="width: 500px;">
+					<form method="POST" action="../Controller/ServidorController.php?acao=inserir" class="form-horizontal" style="width: 500px;">
 						<fieldset>
 							<div class="control-group">
 							

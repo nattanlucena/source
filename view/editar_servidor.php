@@ -1,13 +1,17 @@
 <?php
 
-require_once '../../Controller/ServidorController.php';
-require_once '../../Model/Servidor.php';
+require_once '../Controller/ServidorController.php';
+require_once '../Model/Servidor.php';
 
 if(isset($_GET['id'])){
 	
 		$sc = new ServidorController();
 		$s = $sc->findServer($_GET['id']);
 		
+		
+		$dc = array("SPO", "BR","EUA");
+		$tipo = array("hospedagem", "revenda", "vps");
+	
 }
 
 ?>
@@ -17,8 +21,8 @@ if(isset($_GET['id'])){
 		<meta charset="UTF-8">
 		<title>List Internal HDBR Servers</title>
 		
-		<link rel="stylesheet" type="text/css" href="../../css/estilo.css">
-		<link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
+		<link rel="stylesheet" type="text/css" href="../css/estilo.css">
+		<link rel="stylesheet" type="text/css" href="../css/bootstrap.css">
 		<link rel="stylesheet" type="text/css" href="http://getbootstrap.com/examples/sticky-footer-navbar/sticky-footer-navbar.css">
 		<link href="http://fonts.googleapis.com/css?family=Droid+Sans" rel="stylesheet" type="text/css">
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
@@ -41,33 +45,33 @@ if(isset($_GET['id'])){
 				<div class="container">
 					<div class="navbar-header">
 						
-							<img src="../../img/logo.png" border="0" width="200px;" height="50px;">
+							<img src="../img/logo.png" border="0" width="200px;" height="50px;">
 						
 					</div><!-- .navbar-header -->
 					<div class="collapse navbar-collapse pull-right">
 						<ul class="nav navbar-nav">
-							<li><a href="../../index.php" >Shared Server</a>
+							<li><a href="shared.php" >Shared Server</a>
 								<!-- <ul>
 									<li>EUA</li>
 									<li>BR</li>
 									<li>SP</li>
 								</ul> -->
 							</li>
-							<li><a href="../reseller.php">Reseller Server</a>
+							<li><a href="reseller.php">Reseller Server</a>
 								<!--<ul>
 									<li>EUA</li>
 									<li>BR</li>
 									<li>SP</li>
 								</ul> -->
 							</li>
-							<li><a href="../vps.php">VPS Server</a>
+							<li><a href="vps.php">VPS Server</a>
 								<!--<ul>
 									<li>EUA</li>
 									<li>BR</li>
 									<li>SP</li>
 								</ul> -->
 							</li>
-							<li><a href="../../auditorias/index.php">Audit</a></li>
+							<li><a href="audit/index.php">Audit</a></li>
 						</ul>
 					</div><!-- .navbar-collapse -->
 				</div><!-- .container -->
@@ -81,29 +85,36 @@ if(isset($_GET['id'])){
 					<h3 class="bs-callout bs-callout-info">Edit Server <?php echo $_GET['id'];?></h3>
 				</div>
 				<div id="form">
-					<form method="POST" action="../../Controller/ServidorController.php?acao=editar" class="form-horizontal" style="width: 500px;">
+					<form method="POST" action="../Controller/ServidorController.php?acao=editar" class="form-horizontal" style="width: 500px;">
 						<fieldset>
 							<div class="control-group">
-							
+								<input type="hidden" name="hdnumber" id="hdnumber" value="<?php echo $s->getHdnumber();?>">
 								<div class="form-group">
 									<label for="hdnumber" class="col-sm-4 control-label">HDNumber:</label>
-										<input type="text" class="form-control col-sm-8"  name="hdnumber" required id="hdnumber" 
-											value="<?php echo $s->getHdnumber();?>" disabled style="width: 100px;"/>
+										<input type="text" class="form-control col-sm-8"  style="width: 100px;" value="<?php echo $s->getHdnumber();?>" disabled/>
 								</div>	
 								<div class="form-group">	
 									<label for="dc" class="col-sm-4 control-label">DC:</label>
 										<select id="dc" class="form-control col-sm-8" name="dc">
-											<option value="EUA">EUA</option>
-											<option value="BR">BR</option>
-											<option value="SPO">SPO</option>
+											<?php foreach($dc as $a): ?>
+												<?php if( $a == $s->getDC() ):?>
+													<option value="<?php echo $a;?>"<?php echo "selected='selected'";?>><?php echo $a;?></option>
+													<?php else:?>
+													<option value="<?php echo $a;?>"><?php echo $a;?></option>
+												<?php endif;?>
+											<?php endforeach;?>
 										</select>
 								</div>
 								<div class="form-group">	
 									<label for="tipo" class="col-sm-4 control-label">Tipo:</label>
 										<select id="tipo" class="form-control col-sm-8" name="tipo">
-											<option value="hospedagem">Hospedagem</option>
-											<option value="revenda">Revenda</option>
-											<option value="vps">VPS</option>
+											<?php foreach($tipo as $t):?>
+												<?php if($t == $s->getTipo()):?>
+													<option value="<?php echo $t;?>"<?php echo "selected='selected'";?>><?php echo $t;?></option>
+													<?php else:?>
+													<option value="<?php echo $t;?>"><?php echo $t;?></option>
+												<?php endif;?>
+											<?php endforeach;?>
 										</select><br />
 								</div>
 								<div class="form-group">		
@@ -141,15 +152,25 @@ if(isset($_GET['id'])){
 								<div class="form-group">		
 									<label for="nginx" class="col-sm-4 control-label">* Nginx:</label>
 										<select id="nginx" class="form-control col-sm-8" name="nginx">
-											<option value="sim">Sim</option>
-											<option value="nao">Não</option>
+											<?php if($s->getNginx = "sim"):?>
+												<option value="sim" selected="selected">Sim</option>
+												<option value="nao">Não</option>
+											<?php else:?>
+												<option value="nao" selected="selected">Não</option>
+												<option value="sim" >Sim</option>
+											<?php endif;?>
 										</select>
 								</div>	
 								<div class="form-group">		
 									<label for="cloudlinux" class="col-sm-4 control-label">* CloudLinux:</label>
 										<select id="cloudlinux" class="form-control col-sm-8" name="cloudlinux">
-											<option value="sim">Sim</option>
-											<option value="nao">Não</option>
+											<?php if($s->getCloudlinux = "sim"):?>
+												<option value="sim" selected="selected">Sim</option>
+												<option value="nao">Não</option>
+											<?php else:?>
+												<option value="nao" selected="selected">Não</option>
+												<option value="sim" >Sim</option>
+											<?php endif;?>
 										</select>
 								</div>	
 								<div class="form-group">		

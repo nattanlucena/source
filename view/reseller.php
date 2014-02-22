@@ -49,14 +49,14 @@
 									<li>SP</li>
 								</ul> -->
 							</li>
-							<li><a href="./vps.php">VPS Server</a>
+							<li><a href="vps.php">VPS Server</a>
 								<!--<ul>
 									<li>EUA</li>
 									<li>BR</li>
 									<li>SP</li>
 								</ul> -->
 							</li>
-							<li><a href="#">Audit</a></li>
+							<li><a href="audit/index.php">Audit</a></li>
 						</ul>
 					</div><!-- .navbar-collapse -->
 				</div><!-- .container -->
@@ -111,7 +111,7 @@
 							<td><?php if($r->getCloudlinux() == 'sim'):?><img src="../img/On.png"><?php else:?><img src="../img/Off.png"><?php endif;?></td>
 							<td><?php echo $r->getCpanel(); ?></td>
 							<td>
-								<a href="inserir.php?id=<?php echo $r->getHdnumber()?>">
+								<a href="editar_servidor.php?id=<?php echo $r->getHdnumber()?>">
 									<img src="../img/glyphicons_150_edit.png" title="Editar" width="25" height="25">
 								</a>  
 								
@@ -126,11 +126,8 @@
 					</tbody>
 				</table>
 				<span class="pull-right">
-				<a href="./view/inserir_servidor.php">
-					<button class="btn btn-danger" >
-					<strong>Add Server</strong>
-					<!--<img width="20" height="20"  title="editar texto" src="/imagens/adicionar.gif" /> -->
-					</button>
+				<a href="inserir_servidor.php">
+					<button class="btn btn-danger" >Add Server</button>
 				</a>
 			</span>
 			</div><!-- .content -->

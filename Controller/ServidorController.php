@@ -80,11 +80,11 @@ class ServidorController {
 			$this->servidor->setPhp53($_POST['php53']);
 			$this->servidor->setPhp54($_POST['php54']);
 			$this->servidor->setTipo($_POST['tipo']);
-			$this->servidor->setHdnumber( $_POST['hdnumber']);
+			$this->servidor->setHdnumber($_POST['hdnumber']);
 		
 			try{
-		
-				$v = $this->servidorDAO->update($this->servidor, $hdnumber);
+				//var_dump($this->servidor);
+				$this->servidorDAO->update($this->servidor);
 				header('Location: ../index.php');
 		
 			}catch(Exception $e){

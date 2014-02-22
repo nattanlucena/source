@@ -61,7 +61,7 @@ class ServidorDAO {
 	 * @param servidor $s
 	 * @param int $cond
 	 */
-	public function update($s, $cond){
+	public function update($s){
 		
 		try{
 			
@@ -86,7 +86,7 @@ class ServidorDAO {
 			$stmt = $this->db->prepare($sql);
 			$stmt->bindValue(':dc', $this->server->getDc());
 			$stmt->bindValue(':tipo', $this->server->getTipo());
-			$stmt->bindValue(':hostname', $this->server->getDc());
+			$stmt->bindValue(':hostname', $this->server->getHostname());
 			$stmt->bindValue(':ip', $this->server->getIp());
 			$stmt->bindValue(':dns1', $this->server->getDns1());
 			$stmt->bindValue(':dns2', $this->server->getDns2());
