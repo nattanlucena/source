@@ -65,6 +65,33 @@ class ServidorController {
 	
 	public function editarAction(){
 		
+		if( isset( $_POST['salvar'] ) ){
+				
+			$this->servidor->setCpanel($_POST['cpanel']);
+			$this->servidor->setApache($_POST['apache']);
+			$this->servidor->setCloudlinux($_POST['cloudlinux']);
+			$this->servidor->setDc($_POST['dc']);
+			$this->servidor->setDns1($_POST['dns1']);
+			$this->servidor->setDns2($_POST['dns2']);	
+			$this->servidor->setHostname($_POST['hostname']);
+			$this->servidor->setIp($_POST['ip']);
+			$this->servidor->setMysql($_POST['mysql']);
+			$this->servidor->setNginx($_POST['nginx']);
+			$this->servidor->setPhp53($_POST['php53']);
+			$this->servidor->setPhp54($_POST['php54']);
+			$this->servidor->setTipo($_POST['tipo']);
+			$this->servidor->setHdnumber( $_POST['hdnumber']);
+		
+			try{
+		
+				$v = $this->servidorDAO->update($this->servidor, $hdnumber);
+				header('Location: ../index.php');
+		
+			}catch(Exception $e){
+				echo 'Erro: '.$e;
+				exit();
+			}
+		}
 	}
 	
 	public function deletarAction(){
@@ -135,6 +162,23 @@ class ServidorController {
 			echo 'Erro: '.$e;
 			exit();
 		}
+	}
+	
+	
+	public function findServer($id){
+		
+		try{
+			
+			$s = $this->servidorDAO->find($id);
+			
+			if($s != null){
+				return $s;
+			}
+			
+		}catch(Exception $e){
+			echo 'Erro: '.$e;
+		}
+		
 	}
 }
 
