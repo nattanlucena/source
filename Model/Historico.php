@@ -1,6 +1,7 @@
 <?php
 class Historico {
 	
+	private $servidor_hdnumber;
 	private $dia;
 	private $ticket;
 	private $problema;
@@ -8,9 +9,20 @@ class Historico {
 	private $resolvido;
 	private $downtime;
 	private $observacoes;
+	private $hostname;
+	private $count;
+	private $tipo;
 	
 	public function __construct(){
 		
+	}
+	
+	public function getServidor_hdnumber(){
+		return $this->servidor_hdnumber;
+	}
+	
+	public function setServidor_hdnumber($servidor_hdnumber){
+		$this->servidor_hdnumber = $servidor_hdnumber;
 	}
 	
 	
@@ -70,6 +82,29 @@ class Historico {
 		$this->observacoes = $observacoes;
 	}
 	
+	public function getHostname(){
+		return $this->hostname;
+	}
+	
+	public function setHostname($hostname){
+		$this->hostname = $hostname;
+	}
+	
+	public function getCount(){
+		return $this->count;
+	}
+	
+	public function setCount($count){
+		$this->count = $count;
+	}
+	
+	public function getTipo(){
+		return $this->tipo;
+	}
+	
+	public function setTipo($tipo){
+		$this->tipo = $tipo;
+	}
 	
 }
 

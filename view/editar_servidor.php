@@ -79,7 +79,7 @@ if(isset($_GET['id'])){
 		</div>
 		<!-- #topo -->
 	<div id="all">
-		<div class="container" id="container" style="margin-left: 25%;">
+		<div class="container" id="container" style="padding-left: 25%;">
 			<div class="content">
 				<div style="padding-top: 5px;">
 					<h3 class="bs-callout bs-callout-info">Edit Server <?php echo $_GET['id'];?></h3>
@@ -181,7 +181,7 @@ if(isset($_GET['id'])){
 								
 								<div class="form-group pull-right">
 									<div class="col-sm-offset-2 col-sm-10">	
-										<input type="submit" class="btn btn-danger" id="salvar" value="Editar" name="salvar" style="width: 100px;"/>
+										<input type="submit" class="btn btn-danger" id="salvar" value="Edit" name="salvar" style="width: 100px;"/>
 									</div>
 								</div>
 								<!-- .form-group -->

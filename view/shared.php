@@ -77,18 +77,6 @@
 							</li>
 							<li><a href="audit/index.php">Audit</a></li>
 						</ul>
-						  <ul class="nav pull-right">
-					          <li class="dropdown" id="menuLogin">
-					            <a class="dropdown-toggle" href="#" data-toggle="dropdown" id="navLogin"  style="padding-top:15px;">Login</a>
-					            <div class="dropdown-menu" style="padding:17px; margin-left:-20px;">
-					              <form class="form" id="formLogin">  
-					                <input name="username" id="username" type="text" placeholder="Username" class="form-control"> 
-					                <input name="password" id="password" type="password" placeholder="Password" class="form-control"><br>
-					                <button type="button" class="btn btn-default">Login</button>
-					              </form>
-					            </div>
-					          </li>
-					      </ul>
 					</div><!-- .navbar-collapse -->
 				</div><!-- .container -->
 			</div><!-- .navbar -->

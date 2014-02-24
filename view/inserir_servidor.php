@@ -55,7 +55,7 @@
 									<li>SP</li>
 								</ul> -->
 							</li>
-							<li><a href="../auditorias/index.php">Audit</a></li>
+							<li><a href="audit/index.php">Audit</a></li>
 						</ul>
 					</div><!-- .navbar-collapse -->
 				</div><!-- .container -->
@@ -63,7 +63,7 @@
 		</div>
 		<!-- #topo -->
 	<div id="all">
-		<div class="container" id="container" style="margin-left: 25%;">
+		<div class="container" id="container" style="padding-left: 25%;">
 			<div class="content">
 				<div style="padding-top: 5px;">
 					<h3 class="bs-callout bs-callout-info">Add Server</h3>
@@ -86,10 +86,10 @@
 										</select>
 								</div>
 								<div class="form-group">	
-									<label for="tipo" class="col-sm-4 control-label">Tipo:</label>
+									<label for="tipo" class="col-sm-4 control-label">Type:</label>
 										<select id="tipo" class="form-control col-sm-8" name="tipo">
-											<option value="hospedagem">Hospedagem</option>
-											<option value="revenda">Revenda</option>
+											<option value="hospedagem">Shared</option>
+											<option value="revenda">Reseller</option>
 											<option value="vps">VPS</option>
 										</select><br />
 								</div>
@@ -147,7 +147,7 @@
 								
 								<div class="form-group pull-right">
 									<div class="col-sm-offset-2 col-sm-10">	
-										<input type="submit" class="btn btn-danger" id="salvar" value="Cadastrar" name="salvar" style="width: 100px;"/>
+										<input type="submit" class="btn btn-danger" id="salvar" value="Add" name="salvar" style="width: 100px;"/>
 									</div>
 								</div>
 								<!-- .form-group -->

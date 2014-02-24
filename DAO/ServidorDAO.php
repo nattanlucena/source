@@ -222,6 +222,26 @@ class ServidorDAO {
 
 	}
 	
+	public function findByHDandHostname(){
+		
+
+		try {
+		
+			$sql = "SELECT hdnumber, hostname FROM servidor ";
+		
+			$stmt = $this->db->prepare($sql);
+			$stmt->execute();
+				
+			$row = $stmt->fetchAll();
+		
+			//var_dump($row);
+			return $row;
+				
+		} catch (PDOException $e) {
+			echo $e->getMessage();
+		}
+	}
+	
 }
 
 new ServidorDAO();

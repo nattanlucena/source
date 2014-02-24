@@ -180,6 +180,19 @@ class ServidorController {
 		}
 		
 	}
+	
+	public function getAllHdAndHostnameAction(){
+	
+		try{
+			$ar = array();
+			$ar = $this->servidorDAO->findByHDandHostname();
+			
+			//var_dump($ar);
+			return $ar;
+		}catch(Exception $e){
+			return $e;
+		}
+	}
 }
 
 new ServidorController();

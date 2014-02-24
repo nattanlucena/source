@@ -1,16 +1,14 @@
 <?php
 	
-	require_once '../../Controller/ServidorController.php';
+	require_once '../../Controller/HistoricoController.php';
 	require_once '../../Model/Servidor.php';
 
-	$sc = new ServidorController();
+	$hc = new HistoricoController();
 	$rows = array();
-	$rows = $sc->carregarVPSAction();
 	
-	if($rows == NULL){
-		$rows = $sc;
-	}
+	$rows = $hc->loadHistoriyAction();
 	
+
 ?>
 <!DOCTYPE html!>
 <html lang="pt-br">
@@ -69,11 +67,20 @@
 		<!-- #topo -->
 	<div id="all">
 		<div class="container" id="container">
-			<div class=".page-header">				
+			<div class=".page-header">
+						
 			</div><!-- .page-header -->
 			<div class="content">
 				<div style="padding-top: 5px;">
 					<h3 class="bs-callout bs-callout-info">Audit Area</h3>
+					<span class="pull-right" style="margin-top: -20px;">
+						<a href="new_issue.php">
+							<button class="btn btn-danger" >
+							<strong>New Issue</strong>
+							
+							</button>
+						</a>
+					</span>
 				</div>
 				<div class="tab_">
 					<ul id="tab_1" class="nav nav-tabs nav-justified" style="margin-top: 30px;">
@@ -88,56 +95,156 @@
 						</li>
 					</ul>
 					<div id="tab_content" class="tab-content" style="margin-top: 30px;">
-					<table id="table-list" class="table table-condensed">
-						<thead>
-							<tr>
-								<th>Day</th>
-								<th>ID</th>
-								<th>Hostname</th>
-								<th>Ticket</th>
-								<th>Issue</th>
-								<th>Status</th>
-								<th>Solved</th>
-								<th>Description</th>
-							</tr>
-						</thead>
-						<tbody>
+					
 						
-						<?php foreach($rows as $r): ?>
-							<tr>
-								<td><a href="https://admin.dimenoc.com/server/view/index/id/<?php echo $r->getHdnumber();?>"><?php echo $r->getHdnumber(); ?></a></td>
-								<td><img src="../../img/eua.png" width="30" height="30" border="0"></td>
-								<td><?php echo $r->getHostname(); ?></td>
-								<td><?php echo $r->getIp(); ?></td>
-								<td><?php echo $r->getDns1().'<br />'.$r->getDns2(); ?></td>
-								<td><?php echo $r->getPhp53(); ?></td>
-								<td><?php if($r->getPhp54() != ''): ?><?php echo $r->getPhp54(); ?><?php else:?><img src="../../img/Off.png"><?php endif;?></td>
-								<td><?php echo $r->getApache(); ?></td>
-								<td>
-									<a href="../editar_servidor.php?id=<?php echo $r->getHdnumber()?>">
-										<img src="../../img/glyphicons_150_edit.png" title="Editar" width="25" height="25">
-									</a>  
-									
-									<a href="javascript:void(0)" id="<?php echo $r->getHdnumber()?>" class="remove">
-										<img src="../../img/glyphicons_016_bin.png" title="Remover" width="25" height="25">
-									</a>
-									
-								</td>
-							</tr>
-						<?php endforeach;?>
+						<div class="tab-pane fade in active" id="shared">
+							<div id="tab_table_shared">
+							<table id="table-list" class="table table-condensed">
+								<thead>
+									<tr>
+										<th>Day</th>
+										<th>ID</th>
+										<th>Hostname</th>
+										<th>Ticket</th>
+										<th>Issue</th>
+										<th>Status</th>
+										<th>Solved</th>
+										<th>Description</th>
+										<th>Count</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>	
+								<?php if(is_array($rows)):?>
+									<?php foreach($rows as $r): ?>
+									<?php if($r->getTipo() == "hospedagem"):?>														
+									<tr>
+										<td style="width: 100px;"><?php echo $r->getDia(); ?></td>
+										<td style="width: 100px;"><?php echo $r->getServidor_hdnumber(); ?></td>
+										<td style="width: 200px;"><?php echo $r->getHostname(); ?></td>
+										<td style="width: 100px;"><?php echo $r->getTicket(); ?></td>
+										<td style="width: 200px;"><?php echo $r->getProblema(); ?></td>
+										<td style="width: 100px;"><?php echo $r->getStatus(); ?></td>
+										<td style="width: 100px;"><?php echo $r->getResolvido(); ?></td>
+										<td style="width: 300px;"><?php echo $r->getObservacoes(); ?></td>
+										<td style="width: 300px;"></td>
+										<td style="width: 50px;">
+											<a href="../editar_servidor.php?id=<?php echo $r->getServidor_hdnumber()?>">
+												<img src="../../img/glyphicons_150_edit.png" title="Editar" width="25" height="25">
+											</a>  
+											
+											<a href="javascript:void(0)" id="<?php echo $r->getServidor_hdnumber()?>" class="remove">
+												<img src="../../img/glyphicons_016_bin.png" title="Remover" width="25" height="25">
+											</a>
+											
+										</td>
+									</tr>
+									<?php endif;?>
+									<?php endforeach;?>
+								<?php endif;?>																
+								</tbody>
+							</table>
+							</div>
+						</div><!-- #content_tab_shared -->
 						
-						</tbody>
-					</table>
+						<div class="tab-pane fade" id="reseller">
+							<div id="tab_table_reseller">
+							<table id="table-list" class="table table-condensed">
+								<thead>
+									<tr>
+										<th>Day</th>
+										<th>ID</th>
+										<th>Hostname</th>
+										<th>Ticket</th>
+										<th>Issue</th>
+										<th>Status</th>
+										<th>Solved</th>
+										<th>Description</th>
+									</tr>
+								</thead>
+								<tbody>					
+									<?php if(is_array($rows)):?>
+									<?php foreach($rows as $r): ?>
+									<?php if($r->getTipo() == "revenda"):?>			
+									<tr>
+										<td style="width: 100px;"><?php echo $r->getDia(); ?></td>
+										<td style="width: 100px;"><?php echo $r->getServidor_hdnumber(); ?></td>
+										<td style="width: 200px;"><?php echo $r->getHostname(); ?></td>
+										<td style="width: 100px;"><?php echo $r->getTicket(); ?></td>
+										<td style="width: 200px;"><?php echo $r->getProblema(); ?></td>
+										<td style="width: 100px;"><?php echo $r->getStatus(); ?></td>
+										<td style="width: 100px;"><?php echo $r->getResolvido(); ?></td>
+										<td style="width: 300px;"><?php echo $r->getObservacoes(); ?></td>
+										<td style="width: 300px;"></td>
+										<td style="width: 50px;">
+											<a href="../editar_servidor.php?id=<?php echo $r->getServidor_hdnumber()?>">
+												<img src="../../img/glyphicons_150_edit.png" title="Editar" width="25" height="25">
+											</a>  
+											
+											<a href="javascript:void(0)" id="<?php echo $r->getServidor_hdnumber()?>" class="remove">
+												<img src="../../img/glyphicons_016_bin.png" title="Remover" width="25" height="25">
+											</a>
+											
+										</td>
+									</tr>	
+									<?php endif;?>
+									<?php endforeach;?>
+								<?php endif;?>		
+								</tbody>
+							</table>
+							</div>
+						</div><!-- #content_tab_reseller -->
+						
+						<div class="tab-pane fade" id="vps">
+							<div id="tab_table_vps">
+							<table id="table-list" class="table table-condensed">
+								<thead>
+									<tr>
+										<th>Day</th>
+										<th>ID</th>
+										<th>Hostname</th>
+										<th>Ticket</th>
+										<th>Issue</th>
+										<th>Status</th>
+										<th>Solved</th>
+										<th>Description</th>
+									</tr>
+								</thead>
+								<tbody>		
+								<?php if(is_array($rows)):?>
+									<?php foreach($rows as $r): ?>
+									<?php if($r->getTipo() == "vps"):?>	
+									<tr>
+										<td style="width: 100px;"><?php echo $r->getDia(); ?></td>
+										<td style="width: 100px;"><?php echo $r->getServidor_hdnumber(); ?></td>
+										<td style="width: 200px;"><?php echo $r->getHostname(); ?></td>
+										<td style="width: 100px;"><?php echo $r->getTicket(); ?></td>
+										<td style="width: 200px;"><?php echo $r->getProblema(); ?></td>
+										<td style="width: 100px;"><?php echo $r->getStatus(); ?></td>
+										<td style="width: 100px;"><?php echo $r->getResolvido(); ?></td>
+										<td style="width: 300px;"><?php echo $r->getObservacoes(); ?></td>
+										<td style="width: 300px;"></td>
+										<td style="width: 50px;">
+											<a href="../editar_servidor.php?id=<?php echo $r->getServidor_hdnumber()?>">
+												<img src="../../img/glyphicons_150_edit.png" title="Editar" width="25" height="25">
+											</a>  
+											
+											<a href="javascript:void(0)" id="<?php echo $r->getServidor_hdnumber()?>" class="remove">
+												<img src="../../img/glyphicons_016_bin.png" title="Remover" width="25" height="25">
+											</a>
+											
+										</td>
+									</tr>
+									<?php endif;?>
+									<?php endforeach;?>
+								<?php endif;?>									
+								</tbody>
+							</table>
+							</div>
+						</div><!-- #content_tab_vps -->
+						
 					</div><!-- #tab_content -->
 				</div><!-- .tab_ -->
-				<span class="pull-right">
-				<a href="../inserir_servidor.php">
-					<button class="btn btn-danger" >
-					<strong>New Issue</strong>
-					<!--<img width="20" height="20"  title="editar texto" src="/imagens/adicionar.gif" /> -->
-					</button>
-				</a>
-			</span>
 			</div><!-- .content -->
 		</div> <!-- .container -->
 		
